@@ -1,13 +1,11 @@
-package javaapplication2;
+
+import java.util.function.Supplier;
 
 import java.util.function.Supplier;
 
 public class Fallback {
 
-    /**
-     * Wraps a method with fallback to execute it without throws exceptions
-     */
-    public static <T, E extends Exception> FallbackResponse<T, E> call(Supplier<T> func) {
+    public static <T> FallbackResponse<T> call(Supplier<T> func) {
 
         try {
             var resp = func.get();
@@ -16,5 +14,4 @@ public class Fallback {
             return new FallbackResponse(null, ex);
         }
     }
-
 }
