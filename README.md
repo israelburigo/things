@@ -48,6 +48,3 @@ The result must be the value `10` distributed on `OtherValue` proportional with 
 Item 1: OtherValue = 1.67
 Item 2: OtherValue = 3.33
 Item 3: OtherValue = 5
-
-
-
