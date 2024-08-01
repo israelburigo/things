@@ -20,8 +20,8 @@ Float someBaseCalc = 0f;
 Float someValue = 10f;
 
 var value = Fallback.call(() -> someValue/someBaseCalc)
-    .whenErrorDo(ArithmeticException.class, err -> System.out.printLn($"Error: {err.getMesage()}"))
-    .whenErrorDo(err => System.out.printLn($"Error: {err.getMesage()}"))     
+    .whenErrorDo(ArithmeticException.class, err -> System.out.printLn($"Error: {err.getMessage()}"))
+    .whenErrorDo(err => System.out.printLn($"Error: {err.getMessage()}"))     
     .result();
 
 ````
