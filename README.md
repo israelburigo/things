@@ -1,7 +1,7 @@
 **Fallbacks**
 
-The Fallback class wraps the try-catch instruction, and can return the result function of the call.
-You can use WhenErrorDo's methods to check the error type or only do something when error and continue to return the value that you desire without breaks your flow.
+The Fallback class wraps the try-catch instruction and can return the result function of the `Call`.
+You can use `WhenErrorDo's` methods to check the error type or only do something when error and continue to return the value that you desire without breaks your flow.
 
 **C#:**
 ````
