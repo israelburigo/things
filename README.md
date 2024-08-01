@@ -43,7 +43,7 @@ var list = new List<Item>(){
 
 ApportionHelper.Do(list, p => p.SomeValue, p => p.OtherValue, 10, 2);
 ````
-The result must be the `10` value distributed on `OtherValue` proportional with `SomeValue`
+The result must be the value `10` distributed on `OtherValue` proportional with `SomeValue`
 ````
 Item 1: OtherValue = 1.67
 Item 2: OtherValue = 3.33
