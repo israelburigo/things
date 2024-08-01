@@ -32,7 +32,7 @@ public class RateadorHelper
         {
             var item = (rest > 0m) 
                 ? lista.OrderBy(p => funcDest(p)).First() 
-                : lista.OrderByDescending(p => funcDest(p)).First();
+                : lista.OrderBy(p => funcDest(p)).Last();
 
             propDest.SetValue(item, funcDest(item) + rest);
         }
