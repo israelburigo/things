@@ -1,19 +1,18 @@
-package javaapplication2;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public final class FallbackResponse<R, E extends Exception> {
+public final class FallbackResponse<T> {
 
-    private final R result;
-    private final E error;
+    private final T result;
+    private final Exception error;
 
-    public FallbackResponse(R result, E error) {
+    public FallbackResponse(T result, Exception error) {
         this.result = result;
         this.error = error;
     }
 
-    public <T> FallbackResponse<T, E> call(Function<R, T> func) {
+    public <T2> FallbackResponse<T2> call(Function<T, T2> func) {
         try {
             var response = func.apply(this.result);
             return new FallbackResponse(response, null);
@@ -22,21 +21,21 @@ public final class FallbackResponse<R, E extends Exception> {
         }
     }
 
-    public FallbackResponse<R, E> whenErrorDo(Consumer<E> act) {
+    public FallbackResponse<T> whenErrorDo(Consumer<Exception> act) {
         if (this.error != null) {
             act.accept(this.error);
         }
         return this;
     }
 
-    public <T extends Exception> FallbackResponse<R, E> whenErrorDo(Class<T> errorType, Consumer<T> act) {
+    public <E extends Exception> FallbackResponse<T> whenErrorDo(Class<E> errorType, Consumer<E> act) {
         if (this.error != null && errorType.isAssignableFrom(this.error.getClass())) {
-            act.accept((T)this.error);
+            act.accept((E)this.error);
         }
         return this;
     }
 
-    public FallbackResponse<R, E> whenErrorDoAndThrow(Consumer<E> act) throws E {
+    public FallbackResponse<T> whenErrorDoAndThrow(Consumer<Exception> act) throws Exception {
         if (this.error != null) {
             act.accept(this.error);
             throw this.error;
@@ -44,37 +43,37 @@ public final class FallbackResponse<R, E extends Exception> {
         return this;
     }
 
-    public <T extends Exception> FallbackResponse<R, E> whenErrorDoAndThrow(Class<T> errorType, Consumer<T> act) throws E {
+    public <E extends Exception> FallbackResponse<T> whenErrorDoAndThrow(Class<E> errorType, Consumer<E> act) throws E {
         if (this.error != null && errorType.isAssignableFrom(this.error.getClass())) {
-            act.accept((T) this.error);
-            throw this.error;
+            act.accept((E) this.error);
+            throw (E)this.error;
         }
         return this;
     }
 
-    public FallbackResponse<R, E> whenErrorThrow() throws E {
+    public FallbackResponse<T> whenErrorThrow() throws Exception {
         if (this.error != null) {
             throw this.error;
         }
         return this;
     }
 
-    public <T extends Exception> FallbackResponse<R, E> whenErrorThrow(Class<T> errorType) throws E {
+    public <E extends Exception> FallbackResponse<T> whenErrorThrow(Class<E> errorType) throws E {
         if (this.error != null && errorType.isAssignableFrom(this.error.getClass())) {
-            throw this.error;
+            throw (E)this.error;
         }
         return this;
     }
 
-    public R getResult() {
+    public T getResult() {
         return result;
     }
 
-    public R getResult(R def) {
+    public T getResult(T def) {
         return result == null ? def : result;
     }
 
-    public E getError() {
+    public Exception getError() {
         return error;
     }
 
